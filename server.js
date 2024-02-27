@@ -5,7 +5,8 @@ const connectToDb = require("./config/connectDb");
 const productRouter = require("./routers/productRouter");
 const authRouter = require("./routers/authRouter");
 const userRouter = require('./routers/userRouter')
-const cors=require('cors')
+const cors=require('cors');
+const orderRouter = require("./routers/orderRouter");
 
 //app
 const app = express();
@@ -18,13 +19,15 @@ connectToDb();
 //pardsing
 app.use(express.json());
 
+app.use("/api/auth", authRouter);
 //product routes
 app.use("/api/product", productRouter);
 //authentication routes
-app.use("/api/auth", authRouter);
 //user routes
 app.use('/api/user',userRouter)
 //handlers
+app.use('/api/order',orderRouter)
+
 app.all("*", (req, res) => {
   res.json({ status: "error", data: "page not found" });
 });

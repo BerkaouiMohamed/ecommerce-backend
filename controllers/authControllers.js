@@ -37,7 +37,7 @@ const loginController = asyncWrapper(async (req, res, next) => {
     expiresIn: "1d",
   });
 
-  res.json({ status: "success", data: token });
+  res.json({ status: "success", data: {_id:user._id ,token:token,role:user.isAdmin?"admin":"user"} });
 });
 //________________________________________________________________________
 module.exports = {

@@ -11,12 +11,13 @@ const orderSchema=new mongoose.Schema({
            type:mongoose.Schema.Types.ObjectId,
            ref:'product'
        },
-       quantity:Number
+       quantity:Number,
+       _id:false
    }],
    total:Number,
    status:{type:String,default:'pending',enum:['pending','completed','cancelled']},
 
 },{timestamps:true})
 
-const orderModel=mongoose.model('product',orderSchema)
+const orderModel=mongoose.model('order',orderSchema)
 module.exports=orderModel
