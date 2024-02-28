@@ -33,7 +33,7 @@ const loginController = asyncWrapper(async (req, res, next) => {
     return next("email or password are wrong");
   }
 
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: user._id,role:user.isAdmin?"admin":"user" }, process.env.JWT_SECRET, {
     expiresIn: "1d",
   });
 

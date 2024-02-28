@@ -11,12 +11,30 @@ const newOrderController=asyncWrapper(async (req,res)=>
 const getAllOredersController=asyncWrapper(async (req,res)=>{
 
 
-        const orders=await orderModel.find()
-        res.json({status:"success",data:orders})
-}
+        const orders=await orderModel.find().populate({
+            path:'products.product',
+            model:"product"})
+        res.json({status:"success",data:orders})}
+     
+
 
 )
+
+const getUserOrders=asyncWrapper(async (req,res)=>{
+
+
+    const orders=await orderModel.find({user:req.headers._id}).populate({
+        path:'products.product',
+        model:"product"})
+    res.json({status:"success",data:orders})}
+ 
+
+
+)
+
+
 module.exports={
     newOrderController,
-    getAllOredersController
+    getAllOredersController,
+    getUserOrders
 }
