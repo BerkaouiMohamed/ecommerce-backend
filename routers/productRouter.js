@@ -10,16 +10,29 @@ const jwt=require('jsonwebtoken');
 const verifytoken = require("../middelwares/verfiyToken");
 const isAdmin = require("../middelwares/verifyAdmin");
 require("dotenv").config()
+const multer=require('multer')
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    if(file)
+    cb(null, 'hello' + '-' + Date.now()+`.${file.mimetype.split('/')[1]}`)
+  else{
+    cb('error',null)
+  }
+  }
+})
 
-
+const upload = multer({ storage })
 
 
 //get all products
 productRouter.get("/",  getAllProductsController);
 
 //add new product
-productRouter.post("/", productVerification(),verifytoken,isAdmin, addNewProductController);
+productRouter.post("/",upload.single('image'), productVerification(),verifytoken,isAdmin, addNewProductController);
 
 //delete product
 productRouter.delete("/:id",verifytoken,isAdmin, deletedProductController);

@@ -4,12 +4,14 @@ const {
   getOneUserController,
   deleteUserController,
 } = require("../controllers/userControllers");
+const verifytoken = require("../middelwares/verfiyToken");
+const isAdmin = require("../middelwares/verifyAdmin");
 
 //get all users
-userRouter.get("/", getAllUsersController);
+userRouter.get("/",verifytoken,isAdmin, getAllUsersController);
 //get one user
-userRouter.get("/:id", getOneUserController);
+userRouter.get("/:id",verifytoken,isAdmin,  getOneUserController);
 //delete user
-userRouter.delete("/:id", deleteUserController);
+userRouter.delete("/:id",verifytoken,isAdmin, deleteUserController);
 
 module.exports = userRouter;

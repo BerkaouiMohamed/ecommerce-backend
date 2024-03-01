@@ -15,11 +15,9 @@ const getAllProductsController = asyncWrapper(async (req, res) => {
 });
 //_________________________________________
 const addNewProductController = asyncWrapper(async (req, res, next) => {
-  const validator = validationResult(req);
-  if (!validator.isEmpty()) {
-    return next("validation error");
-  }
-  const product = req.body;
+  console.log("hello");
+
+  const product = {...req.body,image:req.file.filename};
   const newProduct = await productModel.create(product);
   res.json({ status: "success", data: newProduct });
 });

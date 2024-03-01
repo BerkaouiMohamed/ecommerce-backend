@@ -7,11 +7,11 @@ const authRouter = require("./routers/authRouter");
 const userRouter = require('./routers/userRouter')
 const cors=require('cors');
 const orderRouter = require("./routers/orderRouter");
-
+const path=require('path')
 //app
 const app = express();
 
-
+app.use(express.static(path.join(__dirname,"uploads")))
 
 app.use(cors())
 //data base connection
